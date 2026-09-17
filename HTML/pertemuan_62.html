@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tag Datalist</title>
+</head>
+<body>
+    <form action="">
+        <label for="browser">Choose Your Browser:</label>
+        <input type="text" list="browsers" id="browser" placeholder="Type or choose.." >
+        <datalist id="browsers">
+            <option value="Chrome">Chrome</option>
+            <option value="Firefox">Firefox</option>
+            <option value="Safari">Safari</option>
+            <option value="Opera">Opera</option>
+        </datalist>
+    <br>
+    <br>
+        <label for="">Choose a Quantity (1-5):</label>
+        <input type="number" id="" list="quantities" min="1" max="5" step="1">
+        <datalist id="quantities">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </datalist>
+        <br><br>
+        <button type="submit">Kirim Data</button>
+    </form>
+
+    <br>
+    <fieldset>
+        <legend><h4>CODE</h4></legend>
+        <pre>
+    &lt;body&gt;
+        &lt;form action=""&gt;
+            &lt;label for="browser"&gt;Choose Your Browser:&lt;/label&gt;
+            &lt;input type="text" list="browsers" id="browser" placeholder="Type or choose.." &gt;
+            &lt;datalist id="browsers"&gt;
+                &lt;option value="Chrome"&gt;Chrome&lt;/option&gt;
+                &lt;option value="Firefox"&gt;Firefox&lt;/option&gt;
+                &lt;option value="Safari"&gt;Safari&lt;/option&gt;
+                &lt;option value="Opera"&gt;Opera&lt;/option&gt;
+            &lt;/datalist&gt;
+        &lt;br&gt;
+        &lt;br&gt;
+            &lt;label for=""&gt;Choose a Quantity (1-5):&lt;/label&gt;
+            &lt;input type="number" id="" list="quantities" min="1" max="5" step="1"&gt;
+            &lt;datalist id="quantities"&gt;
+                &lt;option value="1"&gt;1&lt;/option&gt;
+                &lt;option value="2"&gt;2&lt;/option&gt;
+                &lt;option value="3"&gt;3&lt;/option&gt;
+                &lt;option value="4"&gt;4&lt;/option&gt;
+            &lt;/datalist&gt;
+            &lt;br&gt;&lt;br&gt;
+            &lt;button type="submit"&gt;Kirim Data&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/body&gt;
+        </pre>
+    </fieldset>
+</body>
+</html>
