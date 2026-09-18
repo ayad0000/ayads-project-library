@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symbol</title>
+</head>
+<body>
+    <p>
+        <h3 align="right">15/9/2026</h3>
+    </p>
+    <fieldset>
+        <legend align="center">
+            <h2><b>Symbol</b></h2>
+        </legend>
+            <pre>
+                <code>
+                    <mark>const nameSymbol = Symbol();</mark>
+                </code>
+            </pre>
+            <p>&blacktriangleright; Membuat symbol tanpa perlu new Qwords seperti function</p>
+            <p>&blacktriangleright; Symbol digunakan untuk pengganti property key</p>
+            <p>&blacktriangleright; Symbol dijamin unik</p>
+            <p>&blacktriangleright; Symbol itu system proteksi Java script yg dimana digunakan untuk menyembunyikan property yg tidak seharusnya dilihat oleh pengguna library / codingan kita</p>
+        <br>
+        <fieldset >
+            <legend>Cara retrieve property nya dari symbol</legend>
+            <pre>
+                const readline = require('readline-sync');
+                const questionSymbol = Symbol();
+                readline[questionSymbol] = 'How are you?';
+                console.log(readline[questionSymbol]);
+            </pre>
+            <p>Terminal result : <b>How are you?</b></p>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>another Example that replaced property key</legend>
+            <pre>
+                const idSymbol = Symbol();
+
+                const person = {
+                    [idSymbol]: 'KU0001',
+                    name: 'Edward',
+                    age: 25,
+                };
+            </pre>
+            <p>memanggil (log) for loop in property</p>
+            <pre>
+                for (const key in  person) {
+                    console.log(key);
+                }
+            </pre>
+            <p>Terminal result : <b>name</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>age</b></p>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>Symbol Types</legend>
+            <p>Local symbol : <br> 
+                <mark>
+                    <code>const nameSymbol = Symbol();</code>
+                </mark>
+            </p>
+            <p>Global symbol : <br>
+                <mark>
+                    <code>const nameSymbol = Symbol.for('name');</code>
+                </mark>
+            </p>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>Debuging Global symbol</legend>
+            <p>&blacktriangleright; Symbol Property key yg belum ada / terdaftar, akan otomatis ditambahkan (di create) oleh <b>Symbol Registry</b>, apabila sudah ada akan otomatis dipanggil</p>
+            <table align="center" cellpadding="15" border="1">
+                <caption><h4 align="right">Symbol Registry</h4></caption>
+                <tr>
+                    <td rowspan="3">
+                        <code>
+                            const symbol1 = Symbol.for('id'); <br>
+                            const symbol2 = Symbol.for('name'); <br>
+                        <mark>const symbol3 = Symbol.for('id');</mark>
+                        </code>
+                    </td>
+                    <th>key</th>
+                    <th>symbol</th>
+
+                </tr>
+                <tr>
+                    <td><mark>'id'</mark> </td>
+                    <td><mark>symbol value</mark></td>
+                </tr>
+                <tr>
+                    <td>'name</td>
+                    <td>symbol value</td>
+                </tr>
+            </table>
+            <br>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>System symbols yg sudah disediakan JavaScript</legend>
+            <pre>
+                Symbol.iterator
+                <mark>Symbol.toPrimitive</mark> (digunakan untuk convert object to primitive operator)
+                Symbol.hasInstance
+            </pre>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend><h5>DEMO</h5></legend>
+            <p>&blacktriangleright; Local symbol</p>
+            <pre>
+                const person = {
+                    firstName: 'Edward',
+                    age: 20,
+                };
+
+                const idSymbol = Symbol<mark>('id')</mark>;     <mark>(hanya deskription, bukan property key nya)</mark>
+                const citySymbol = Symbol<mark>('city')</mark>; <mark>(hanya deskription, bukan property key nya)</mark>
+
+                console.log(idSymbol === citySymbol);
+            </pre>
+            <p>Terminal result : <b>false</b> <br>
+                <cite>Symbol pasti unik dikarenakan semua property key dalam Symbol akan disimpan ke Symbol Registry secara otomatis</cite>
+            </p>
+            <pre>
+                person[idSymbol] = 'KU0001';
+                person[citySymbol] = 'Jakarta';
+
+                console.log(person);
+            </pre>
+            <p>Terminal result : <b>{ <mark>id</mark> : KU0001, <mark>city</mark> ; Jakarta }</b> <br>
+                <cite>dalam Terminal result, property key nya hanya akan menampilkan Symbol description, itu disebabkan karena symbol berfungsi untuk melindungi / menyembunyikan property key yg seharusnya tidak ditampilkan oleh programer lain pada saat buka project / library kita</cite>
+            </p>
+            <br>
+            <p>&blacktriangleright; Global symbol</p>
+            <pre>
+                const person = {
+                    firstName: 'Edward',
+                    age: 20,
+                };
+
+                const idSymbol = Symbol.for<mark>('id')</mark>;           <mark>(symbol registery key nya, bukan description)</mark>
+                const anotherIdSymbol = Symbol.for<mark>('id')</mark>;    <mark>(symbol registery key nya, bukan description)</mark>
+
+                console.log(idSymbol === anotherIdSymbol);
+            </pre>
+            <p>Terminal result : <b>true</b> <br>
+                <cite>Karena terminal memanggil Symbol Registry yang sama</cite>
+            </p>
+        </fieldset>
+    </fieldset>
+</body>
+</html>
