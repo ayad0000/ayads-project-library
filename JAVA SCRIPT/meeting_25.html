@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object to Primitive type</title>
+</head>
+<body>
+    <h3 align="right">16/9/2026</h3>
+    <fieldset>
+        <legend align="center">
+            <h2>Object to Primitive type</h2>
+        </legend>
+        <p>&blacktriangleright; Object type dibentuk menggunakan Primitive type</p>
+        <p>&blacktriangleright; JavaScript hs 8 data types, and 2 different types, it contains : </p>
+        <table align="center" rules="all" cellpadding="10">
+            <tr>
+                <td>number</td>
+                <td rowspan="6">Primitive Types</td>
+            </tr>
+            <tr>
+                <td>string</td>
+            </tr>
+            <tr>
+                <td>boolean</td>
+            </tr>
+            <tr>
+                <td>undefined</td>
+            </tr>
+            <tr>
+                <td>null</td>
+            </tr>
+            <tr>
+                <td>symbol</td>
+            </tr>
+            <tr>
+                <td>object</td>
+                <td>Obect Types</td>
+            </tr>
+        </table>
+        <br>
+        <p>Jika ada kasus seperti ini : <br>
+            <pre>           const result = <mark>obj1 - obj2;</mark></pre>    
+        </p>
+        <p>Bagimana cara supaya object bisa dijumlahkan dengan object lain?</p>
+        <p> Yaitu mengubah object dari asalny Object Type -> <b>Primitive Type</b></p>
+        <br>
+        <p>&blacktriangleright; Ada sesuatu yang dipakai JavaScript untuk mengubah Object menjdi primitive type : <br>
+           &nbsp;&nbsp;&nbsp; yaitu menggunakan <b>TYPE COERCION</b>
+        </p>
+        <fieldset>
+            <legend>Java script melakukan type Coercion menggunakan Hint</legend>
+            <p>ada 3 type coercion yg digunakan <b>HINT</b></p>
+            <pre>
+                <b>Hint</b>
+                'number'
+                'string'
+                'default'
+            </pre>
+            <p>&blacktriangleright; Contoh kasus berikut yg menghasilkan type Hint nya adalah 'number' :</p>
+            <pre>
+                const result = <mark>obj1 - obj2;</mark>
+                                    |
+                                    &blacktriangledown;
+                                Hintnya adalah 'number'
+                
+
+                const result = <mark>obj1 > obj2;</mark>
+                                    |
+                                    &blacktriangledown;
+                                Hintnya adalah 'number'
+
+                
+                const result = <mark>+obj1</mark>
+                               |
+                               &blacktriangledown;
+                        Hintnya adalah 'number'
+            </pre>
+            <p>&blacktriangleright; Khusus operator + binary type hint nya akan selalu 'default' karena ada 2 kemungkinan yg bisa terjadi, antara menjumlahkan 'number' / menambahkan 'string', dalam Java script hal tersebut tidak akan dijalankan secara langsung, jadi dia akan kembali ke 'default'</p>
+            <pre>
+                const result = <mark>obj1 + 'Hello'</mark>
+                                    |
+                                    &blacktriangledown;
+                                Hintnya adalah 'default'
+
+
+                const result = <mark>obj1 + obj2</mark>
+                                    |
+                                    &blacktriangledown;
+                                Hintnya adalah 'default'
+            </pre>
+            <p>&blacktriangleright; Jadi kasus di atas, object type + object type, akan selalu menghasilkan type hint 'default'</p>
+            <br>
+            <p>&blacktriangleright; Berikut contoh kasus supaya object type nya berubah menjadi type hint 'number', maka diberi tambahan unary operator <b>+date'</b></p>
+            <pre>
+                const date = <mark>new</mark> Date(2011, 1, 1);     <mark><cite>construction function</cite></mark>
+
+                console.log(<mark>+</mark>date);    <mark><cite>unary operator</cite></mark> 
+            </pre>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>Proses JavaScript mengubah object menjadi Primitive type menggunakan Symbol</legend>
+            <p>&blacktriangleright; Contoh kasus berikut menggunakan System Simbol (Symbol dari java script): Symbol.toPrimitive :</p>
+            <pre>
+                const person = {
+                    name: 'Edward',
+                    salary: 5000,
+                };
+
+                person[Symbol.toPrimitive] = function(<mark>hint</mark>) {      <mark><cite>parameternya <b>hint</b></cite></mark>
+                    if (hint === 'number') {
+                        return this.salary;
+                    }
+                    
+                    return this.name
+                }
+            </pre>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>DEMO Symbol.toPrimitive</legend>
+            <pre>
+                function Person(name, salary) {
+                    this.nme = name;
+                    this.salry = salary;
+                    this[Symbol.toPrimitive] = function(hint) {
+                        return hint === 'number' <mark>?</mark> this.salary <mark>:</mark> this.name;       <mark><cite>menggunakan if else ternary operator</cite></mark>
+                    }
+                }
+
+                const person1 = <mark>new</mark> Person('Edward', 8000);        <mark><cite>construction function</cite></mark>
+                const person2 = <mark>new</mark> Person('John', 5000);          <mark><cite>construction function</cite></mark>
+
+                <mark>console.log(person1 - person2);</mark>                    <mark><cite>Terminal result : <b>3000</b></cite></mark>
+            </pre>
+            <p>&blacktriangleright; Di contoh kasus tersebut, person1 - person2, type hint nya sudah otomatis 'number', jadi masing² object 1 & 2 memanggil this. Salary, lalu dijumlahkan</p>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>2nd Option use Symbol obj.toString( ) or obj.valueOf( )</legend>
+            <p>&blacktriangleright; Kalo tanpa menggunakan property  key symbol.toPrimitive di dalam objectnya, yaitu tergantung Hint nya apa, dibagi menjadi 2 jenis, yaitu 'string' & 'number / default' :</p>
+            <table align="center" rules="all" cellpadding="15">
+                <tr>
+                    <th>string</th>
+                    <th>number / default</th>
+                </tr>
+                <tr>
+                    <td><code>obj.toString() <br>
+                        obj.vlueOf()</code>
+                    </td>
+                    <td><code>obj.vlueOf() <br>
+                        obj.toString()</code>
+                    </td>
+                </tr>
+            </table>
+            <p>&blacktriangleright; kalo hint nya string, yg terpanggil duluan <code>obj.toString()</code></p>
+            <p>&blacktriangleright; kalo hint nya number/default, yg terpanggil duluan <code>obj.valueOf()</code></p>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>DEMO 2 Symbol obj.toString( ) or obj.valueOf</legend>
+            <pre>
+                const person = {
+                    name: 'Edward',
+                    salary: 5000,
+                    toString: function() {
+                        return this.name
+                    },
+                    valueOf: function() {
+                        return this.salary;
+                    },
+                };
+
+                <mark>console.log(+person);</mark>                  <mark>Terminal result : <b>5000</b></mark>
+                <mark>console.log('Hello' + person);</mark>         <mark>Terminal result : <b>Hello 5000</b></mark>
+            </pre>
+            <p>&blacktriangleright; <code>+person</code> menampilkan <b>5000</b>,  karena type hintnya number, jadi yg terpanggil pertama yaitu <code>person.valueOf()</code></p>
+            <p>&blacktriangleright; <code>"hello" + person</code> menampilkan <b>hello 5000</b>, kenapa?? karena type hint nya default, yg dimana yg terpanggil pertama yaitu <code>person.valueOf()</code></p>
+        </fieldset>
+        <br><br>
+        <h5>*NOTE</h5>
+        <p>cara yang diutamakan & sering digunakan oleh programer yaitu cara yg pertama, yaitu menggunakan <code>Symbol.toPrimitive</code>, kenapa ?? karena <code>Symbol.toPrimitive</code> adalah hasil update dari JavaScript untuk penyempurnaan & fix bug dari cara ke-2 yaitu <code>obj.toString</code> & <code>obj.valueOf</code></p>
+    </fieldset>
+</body>
+</html>
