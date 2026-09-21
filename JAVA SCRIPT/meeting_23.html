@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Methods and Constructors</title>
+</head>
+<body>
+    <p>
+        <h3 align="right">14/9/2026</h3>
+    </p>
+    <fieldset>
+        <legend align="center">
+            <h2>Methods and Constructors</h2>
+        </legend>
+        <table rules="all" cellpadding="20" align="center">
+            <tr>
+                <th>Code</th>
+                <th>Terminal result</th>
+            </tr>
+            <tr>
+                <td>
+    <pre>
+        const retangle = {
+            width: 5;
+        };
+
+        rectangle.height = 3;
+
+        <mark>console.log(rectangle);</mark>
+    </pre>
+                </td>
+                <td>
+                    <code>
+                        <mark>
+                            <b>{ width: 5, height: 3 }
+                            </b>
+                        </mark>
+                    </code>
+                </td>
+            </tr>
+        </table>
+        <p>&blacktriangleright; property bisa dibuat diluar object nya</p>
+        <br><br>
+        <fieldset>
+            <legend>Function is Value</legend>
+            <p>&blacktriangleright; Function adalah value, maka function bisa ditambahkan ke property value, seperti berikut :</p>
+            <pre>
+                const person = {
+                    name: 'Edward',
+                    age: 25,
+                };
+
+                function sayHello() {
+                    console.log('Hello!');
+                };
+
+                person.sayHello = sayHello;
+
+                <mark>person.sayHello();</mark>                     <mark>Terminal result : Hello!</mark>
+            </pre>
+            <br>
+            <p>&blacktriangleright; Bisa juga menggunakan function expression , bisa juga function declaration</p>
+            <pre>
+                const person = {
+                    name: 'Edward',
+                    age: 25,
+                };
+
+                <mark>person.sayHello = function() {</mark>         <mark><cite>function sayHello adalah bagian dari object.</cite></mark>
+                    <mark>console.log('Hello!');</mark>             <mark><cite>Maka kita memanggilnya dengan <b>METHOD sayHello.</b></cite></mark>
+                };
+
+                person.sayHello();
+            </pre>
+            <p>&blacktriangleright; *note, kalo function dimiliki / menjadi object property, makan bukan lagi menjadi function, melainkan <b>METHOD</b> </p>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>DEMO Methods</legend>
+            <pre>
+                const person = {
+                    name: 'Edward',
+                    age: 25,
+                };
+
+                person.city = 'Jakarta';
+
+                function sayHello() {
+                    console.log('Hello!');
+                }
+
+                person.sayHello = sayHello;
+
+                <mark>console.log(person.sayHello);</mark>          <mark>Terminal result : [function:sayHello]</mark>
+            </pre>
+            <br>
+            <p>&blacktriangleright; 2nd Case</p>
+            <pre>
+                   const person = {
+                    name: 'Edward',
+                    age: 25,
+                };
+
+                person.city = 'Jakarta';
+
+                function sayHello() {
+                    console.log('Hello!');
+                }
+
+                person.sayHello = sayHello;
+
+                <mark>person.sayHello();</mark>                      <mark>Terminal result : Hello!</mark>
+            </pre>
+            <p>*bisa ditambahkan variabel juga</p>
+            <br>
+            <p>&blacktriangleright; 3rd Case</p>
+            <pre>
+                const person = {
+                    name: 'Edward',
+                    age: 25,
+                };
+
+                person.city = 'Jakarta';
+
+                function sayHello() {
+                    console.log('Hello!');
+                }
+
+                person.sayHello = sayHello;
+
+                person.sayHello -> <cite>dapatkan property value(isinya function)</cite>
+
+                person.sayHello()
+                <cite>// 1. dapatkan property value(isinya function)
+                // 2. Jalankan function tersebut</cite>
+            </pre>
+            <p>*note : person.sayHello(); tanda () ini khusus untuk memanggil function didalam object property (methods), apabila propertynya bukan function (method) maka akan error</p>
+        </fieldset>
+    </fieldset>
+</body>
+</html>
