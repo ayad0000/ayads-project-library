@@ -136,6 +136,227 @@
                 // 2. Jalankan function tersebut</cite>
             </pre>
             <p>*note : person.sayHello(); tanda () ini khusus untuk memanggil function didalam object property (methods), apabila propertynya bukan function (method) maka akan error</p>
+            <br>
+            <p>&blacktriangleright; 4th Case</p>
+            <pre>
+                const person = {
+                    name: 'Edward',
+                    age: 25,
+                };
+
+                person.city = 'Jakarta';
+
+                person.sayHello = function() {
+                    console.log('Hello!');
+                };
+
+                person<mark>['sayHello']();</mark>                  <mark><cite>Bisa juga menggunakan tanda [] untuk memanggil function di dalam object property</cite></mark>
+                
+                person<mark>.sayHello();</mark>                     <mark><cite>opsi Ke-2</cite></mark>
+            </pre>
+            <p>&blacktriangleright; Note : 2 option untuk memanggil function di dalam object property <br>
+                Debug / proses : <br>
+                &blacktriangleright; person['sayHello'] : dapatkan, () : lalu eksekusi <br>
+                &blacktriangleright; person.sayHello : dapatkan, () : lalu eksekusi
+            </p>
+            <br>
+            <p>&blacktriangleright; 5th Case</p>
+            <pre>
+                const person = {
+                    name: 'Edward',
+                    age: 25,
+                    city = 'Jakarta',
+                    sayHello = function() {
+                    console.log('Hello!')
+                    },
+                };
+
+                person.sayHello();
+            </pre>
+            <p>&blacktriangleright; Supaya lebih rapih, bisa juga seperti ini (didalam object) karena function adalah value</p>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend><b>'THIS'</b> for Methods</legend>
+            <pre>
+                const <mark>rectangle</mark> = {
+                    width: 5,
+                    height: 3,
+                };
+
+                function getRectangleArea(<mark>r</mark>) {
+                    return r.width * r.height;
+                }
+
+                <mark>console.log(getRectangleArea(rectangle));</mark>              <mark>Terminal result : 15</mark>
+            </pre>
+            <p>&blacktriangleright; <code>Function getRectangleArea(r) : (r)</code> parameter untuk object apapun yg memiliki property width & height</p>
+            <p>&blacktriangleright; <code>Console.log(getRectangleArea(rectangle)) ;  : (rectangle)</code> argumen dari function getRectangleArea ini adalah object <mark>'rectangle'</mark> jadi masuk ke parameter (r) </p>
+            <p>*Note : ada kejanggalan daripada contoh ini, karena seharusnya function getRectangleArea(r) ini satu kesatuan dengan object rectangle </p>
+            <p>Maka dirubah menjadi seperti berikut :</p>
+            <pre>
+                const <mark>rectangle</mark> = {
+                    width: 5,
+                    height: 3,
+                };
+
+                rectangle.getArea = function() {
+                    return <mark>this</mark>.width * <mark>this</mark>.height;
+                }
+
+                console.log(rectangle<mark>.getArea()</mark>);
+            </pre>
+            <p>&blacktriangleright; Function nya ditambahkan ke object property & tidak ada parameter, melainkan ditambah this.width * this.height</p>
+            <p>&blacktriangleright; Lalu <mark><code>'This'</code></mark> apa ?</p>
+            <p>&blacktriangleright; This ini isinya tidak diketahui / tidak bisa ditentukan, kecuali method <mark><code>.getArea</code></mark> dipanggil</p>
+            <p>&blacktriangleright; Jadi <mark><code>this</code></mark> dari case diatas, isinya adalah object property <mark><code>rectangle</code></mark></p>
+            <p>*Note : karena menurut spesifikasi JavaScript variable <mark><code>'this'</code></mark> adalah value sebelum tanda titik <code>console.log(<mark>this</mark>.widht); = (<mark>rectangle</mark>.widht);</code></p>
+            <br>
+            <p>&blacktriangleright; 2nd Case</p>
+            <pre>
+                const <mark>rectangle1</mark> = {
+                    width: 5,
+                    height: 3,
+                };
+                
+                const <mark>rectangle2</mark> = {
+                    width: 10,
+                    height: 2,
+                };
+                
+                function <mark>calcArea</mark>() {
+                    return <mark>this</mark>.width * <mark>this</mark>.height;
+                };
+
+                <mark>rectangle1</mark>.calculateArea = <mark>calcArea</mark>;
+                <mark>rectangle2</mark>.calculateArea = <mark>calcArea</mark>;
+
+                <mark>console.log(rectangle1.calculateArea());</mark>           <mark>Terminal result: 15</mark>
+                <mark>console.log(rectangle2.calculateArea());</mark>                           <mark>20</mark>
+            </pre>
+            <p>Apa fungsi <code>'this'</code>?</p>
+            <p>&blacktriangleright; Ketika ada 2 operator, yg akan di calculate menggunakan 1 function (method)</p>
+            <p>&blacktriangleright; Maka peran <code><mark>this</mark>.width * <mark>this</mark>.height</code> ini menjadi dinamis, karena <mark><code>'this'</code></mark> nya tergantu apa yg di call method nya di console.log</p>
+            <p>*note : tidak bisa menggunakan Arrow function (<mark><code>'=>'</code></mark>), karena Arrow function tidak memiliki <mark><code>'this'</code></mark> jadi dikhususkan untuk function expression & function declaration <br>
+                <cite>(Kalo dipanggil dalam terminal <code>node.js</code> maka terminal value nya adalah <b>Empty Object</b>)</cite>
+            </p>
+            <br>
+            <p>&blacktriangleright; 3rd Case : Another example</p>
+            <pre>
+                const <mark>circle</mark> = {
+                    radius: 5,
+                    calculateArea: function() {
+                        return Math.PI * <mark>this</mark>.radius ** 2;
+                    },
+                    calculatePerimeter: function() {
+                        return 2 * Math.PI * <mark>this</mark>.radius;
+                    },
+                };
+
+                const area = <mark>circle</mark>.calculateArea();
+                const perimeter = <mark>circle</mark>.calculatePerimeter();
+
+                <mark>console.log(`area: ${area}`);</mark>                      <mark>Terminal result: area: 78.53------</mark>
+                <mark>console.log(`perimeter: ${perimeter}`);</mark>                             <mark>perimeter: 31.415------</mark>
+            </pre>
+            <p>*Note : object itu adalah entitas</p>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend><B>CONSTRUCTOR FUNCTION</B></legend>
+            <pre>
+                const rectangle1 = {
+                    width: 5,
+                    height: 3,
+                    getArea: function() {
+                        return this.width * this.height;
+                    },
+                };
+
+                const rectangle2 = {
+                    width: 7,
+                    height: 12,
+                    getArea: function() {
+                        return this.width * this.height;
+                    },
+                };
+
+                const rectangle3 = {
+                    width: 8,
+                    height: 15,
+                    getArea: function() {
+                        return this.width * this.height;
+                    },
+                };
+            </pre>
+            <p>&blacktriangleright; Contoh kasus pembuatan object seperti ini, ada caranya supaya menjadi lebih mudah & simple</p>
+            <p>&blacktriangleright; Yaitu menggunakan <b>Contsructor Function :</b></p>
+            <pre>
+                function <mark>Rectangle</mark>(width, height) {                <mark><cite>penulisan nama daripada function nya harus menggunakan Pascal case (Rectangle), alasannya supaya programer lain tau bahwa function tersebut harus menggunakan key word 'new' untuk memanggilnya</cite></mark>
+                    this.width = width;
+                    this.height = height;
+                    this.getArea = function() {
+                        return this.width * this.height;
+                    };
+                }
+
+                <mark>const rectangle1 = <cite>new</cite> Rectangle(5, 3);</mark>           <mark>Terminal result: 15</mark>
+                <mark>const rectangle2 = <cite>new</cite> Rectangle(7, 12);</mark>                           <mark>84</mark>
+                <mark>const rectangle3 = <cite>new</cite> Rectangle(8, 15);</mark>                           <mark>120</mark>
+            </pre>
+            <p>&blacktriangleright; Yg special dari function ini yaitu : <code><mark><cite>new</cite></mark> Rectangle(5, 3);</code></p>
+            <p>&blacktriangleright; Bagaimana key word 'new' bekerja :</p>
+            <pre>
+                function Rectangle(width, height) {
+                    <mark>const this = {};</mark>                               2. <mark>new'</mark> dibalik layar akan otomatis dibuat variable bernama <mark><code>this =</code> diisi dengan empty object <code>{};</code></mark>
+
+                    <mark>this.width</mark> = width;
+                    <mark>this.height</mark> = height;
+                    <mark>this.getArea</mark> = function() {
+                        return this.width * this.height;
+                    };
+                    
+                    <mark>return this;</mark>                                   3. Maka <mark><code>this.widht, this.height, this.getArea</code></mark> akan otomatis keisi di <mark><code>empty object {};</code></mark>
+                }
+
+                <mark>new</mark> Rectangle(5,3);
+                 |
+                 &blacktriangledown;
+            1. tambah keyword <mark>'new'</mark>
+            </pre>
+            <p>*note : proses tersebut tidak akan terlihat</p>
+            <br><br>
+            <fieldset>
+                <legend>DEMO Constructor Function</legend>
+                <pre>
+                function <mark>Rectangle</mark>(width, height) {
+                    this.width = width;
+                    this.height = height;
+                    this.<mark>getArea</mark> = function() {
+                        return this.width * this.height;
+                    };
+                }
+
+                function <mark>Circle</mark>() {
+                    this.radius = radius;
+                    this.<mark>getArea</mark> = function() {
+                        return Math.PI * this.radius ** 2;
+                    };
+                }
+
+                const rectangle1 = new <mark>Rectangle</mark>(5, 3);
+                const rectangle2 = new <mark>Rectangle</mark>(10, 2);
+
+                const circle1 = new <mark>Circle</mark>(5);
+                const circle2 = new <mark>Circle</mark>(10);
+
+                <mark>console.log(rectangle1.getArea());</mark>                 <mark>Terminal result: 15</mark>
+                <mark>console.log(rectangle2.getArea());</mark>                                  <mark>20</mark>
+                
+                <mark>console.log(circle1.getArea());</mark>                    <mark>Terminal result: 78.53------</mark>
+                <mark>console.log(circle2.getArea());</mark>                                     <mark>314</mark>
+                </pre>
+            </fieldset>
         </fieldset>
     </fieldset>
 </body>
