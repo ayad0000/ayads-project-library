@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Objects are Copied & Ternary Operator</title>
+</head>
+<body>
+    <p>
+        <h3 align="right">10/9/2026</h3>
+    </p>
+    <fieldset>
+        <legend align="center">
+            <h2>How Objects are Copied & Ternary Operator<</h2>
+        </legend>
+        <fieldset>
+            <legend>Example 1 Copied VARIABLE</legend>
+        <pre>
+            let price = 100;
+            let <mark>copiedPrice = price;</mark>               <mark><cite>menduplikat variable price</cite></mark>
+
+            copiedPrice = 50;
+
+            <mark>console.log(copiedPrice);</mark>              <mark>Terminal result : 50</mark>
+            <mark>console.log(price);</mark>                                      <mark>100</mark>
+        </pre>
+        <p>&blacktriangleright; Proses dibalik layar :</p>
+        <pre>
+            <mark>let price = 100;</mark>
+            let copiedPrice = price;               
+
+            <mark>copiedPrice = 50;</mark>                         <mark>price</mark>                        <mark>copiedPrice</mark>
+                                                        &DoubleUpArrow; <mark>bind</mark>                          &DoubleUpArrow; <mark>bind</mark>
+            console.log(copiedPrice);           <mark>0 1 1 0 0 1 0 0</mark>     Clone &DoubleLongRightArrow;     <mark>0 0 1 1 0 0 1 0</mark>              <mark><cite>convert to binary</cite></mark>               
+            console.log(price);                                                  Value in memory is set to 50                                                                                
+        </pre>
+        <p>&blacktriangleright; <code>let price = 100;</code> Pertama ini disimpan dalam bentuk tegangan listrik, yaitu binary <mark>01100100</mark><br>
+            &blacktriangleright; Lalu dikondisikan / <mark><b>bind</b></mark> <cite>(diikat)</cite> dengan variable price <br>
+            &blacktriangleright; Lalu <code>copiedPrice</code> akan dicopy / <b>clone</b> ke penyimpaann memory lain <br>
+            &blacktriangleright; Lalu di <mark><b>bind</b></mark> lagi ke vaariable <code>copiedPrice</code>, binary code nya berubah menjadi number 50
+        </p>                                                                                                                          
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>Example 2 copied OBJECT</legend>
+        <pre>
+            let rectangle = { width: 5, height: 3 };
+            let copiedRectangle = rectangle
+
+            copiedRectangle.width = 10;
+
+            <mark>console.log(copiedRectangle.widht);</mark>    <mark>Terminal result : 10</mark>
+            <mark>console.log(rectangle.widht);</mark>                            <mark>10 <cite>otomatis terubah dari obj copiedRectangle</cite></mark>
+        </pre>
+        <p>&blacktriangleright; Proses dibalik layar :</p>
+        <pre>
+            let <mark>rectangle</mark> = { width: 5, height: 3 };
+            let copiedRectangle = rectangle                 <mark>rectangle</mark>           <mark>copiedRectangle</mark>
+                                                                &DoubleUpArrow; <mark>bind</mark>                 &DoubleUpArrow; <mark>bind</mark>
+            <mark>copiedRectangle.width = 10;</mark>                     <mark>reference</mark>              <mark>reference</mark>
+                                                                |                      |
+            console.log(copiedRectangle.widht);                 |                      |
+            console.log(rectangle.widht);                       |                      |
+                                                            {                          |
+                                <mark>Width</mark> is update to 10         <mark>width: 10,</mark> ______________|
+                                                              height: 3,                                                               
+                                                            }
+             
+        </pre>
+        <p>&blacktriangleright; <mark><code>reference</code></mark> <cite>(acuan)</cite> mengarah ke memory yg menyimpan object property <br>
+            &blacktriangleright; Lalu yg di <mark><b>bind</b></mark> bukanlah value, melainkan <mark><code>reference</code></mark> <br>
+            &blacktriangleright; Lalu <mark><code>copiedRectangle</code></mark> nya itu yg dicopy, bukan value nya, melainkan <mark><code>reference</code></mark> <br>
+            &blacktriangleright; Jadi 2 reference tersebut sama-sama mengarah ke 1 lokasi value object
+        </p>
+        <p>*Note : Maka kalo diganti property value nya, akan otomatis merubah value property nya, bukan merubah reference nya</p>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>DEMO</legend>
+            <pre>
+                let isMarried = true;
+                let copiedIsMarried = isMarried;
+
+                isMarried = false;
+
+                <mark>console.log(is married: ' + isMarried);</mark>                    <mark>Terminal result : is married: false</mark>
+                <mark>console.log('copied is married: ' + copiedIsMarried);</mark>                        <mark>copied is married: true</mark>
+            </pre>
+            <p>Menggunakan data type <code>boolean</code></p>
+            <p>&blacktriangleright; Another DEMO</p>
+            <pre>
+                let person = {
+                    name: 'Edward',
+                    age: 25,
+                };
+
+                let copiedPerson = person;
+
+                copiedPerson.name = 'Dzaky';
+                person.age = 5;
+
+                <mark>console.log(person);</mark>           <mark>Terminal result : { name: 'Dazky', age: 5, }</mark>
+                <mark>console.log(copiedPerson);</mark>                       <mark>{ name: 'Dazky', age: 5, }</mark>
+            </pre>
+            <p>&blacktriangleright; Another DEMO</p>
+            <pre>
+                let person = {
+                    name: {
+                        first: 'Edward',
+                        last: 'Anthony',
+                    },
+                    age: 25,
+                };
+
+                let copiedName = person.name;
+                copiedName.first = 'Michael';
+
+                <mark>console.log(person);</mark>       <mark>Terminal result : { name: { first: 'Michael', last: 'Anthony' }, age: 25 }</mark>
+            </pre>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend>
+                <h2>Ternary Operator</h2>
+            </legend>
+            <pre>
+                boolean value <mark>?</mark> return if true <mark>:</mark> return if false
+            </pre>
+            <p>&blacktriangleright; Disebut <b>Ternary Operator</b> karena operannya ada 3, serta simbolnya yaitu <mark>'?, :'</mark></p>
+            <p>*Note : Kategori operatornya hanya 1, jadi nama kategori juga <mark>'ternary operator'</mark></p>
+            <br>
+            <pre>
+                <mark>boolean value</mark> ? <mark>return if true</mark> : <mark>return if false</mark>
+                       |               |                 |
+                    operan          operan            operan
+            </pre>
+            <p>&blacktriangleright; Kalo boolean value 'true', maka return setelah tanda <mark>'?'</mark>, kalo false setelah tanda <mark>':'</mark></p>
+            <p>*Note : Syntax lain untuk IF ELSE</p>
+            <fieldset>
+                <legend>Example</legend>
+                <pre>
+                    temperature >= 37 ? <mark>'sick'</mark> : 'normal'
+                                            |
+                                Will be returned if true
+                </pre>
+                <p>&blacktriangleright; Kalo hasilnya true <cite>(diatas 37)</cite> returnnya 'sick, kalo false <cite>(dibawah 37</cite> 'normal'</p>
+            </fieldset>
+            <br><br>
+            <fieldset>
+                <legend>DEMO</legend>
+                <pre>
+                    const temperature1 = 38;
+                    const temperature2 = 36.5;
+
+                    const result1 = <mark>temperature1 >= 37</mark> ? <mark>'sick'</mark> : <mark>'healthy'</mark>;
+                    const result2 = temperature2 >= 37 ? 'sick' : 'healthy';
+
+                    <mark>console.log(result1);</mark>          <mark>Terminal result : sick</mark>
+                    <mark>console.log(result2);</mark>                            <mark>healthy</mark>
+                </pre>
+                <p>&blacktriangleright; kalo ada 3 kemungkinan, Syntax nya seperti ini :</p>
+                <pre>
+                    const temperature = 36.5;
+
+                    const result = temperature >= 37 ? 'sick' : <mark>(temperature <= 35 ? 'hypothermia' : 'healthy')</mark>;
+
+                    <mark>console.log(result);</mark>           <mark>Terminal result : normal</mark>
+                </pre>
+                <p>&blacktriangleright; kalo ada lebih dari 3 kemungkinan, Syntax nya seperti ini :</p>
+                <pre>
+                    const score = 80;
+                    const grade = score < 60 ? 'F' :
+                        score < 70 ? 'D' :
+                        score < 80 ? 'C' :
+                        score < 90 ? 'B' : 'A';
+
+                    <mark>console.log(grade);</mark>            <mark>Terminal result : B</mark>
+                </pre>
+                <p>*Note : grade nya dari bawah ke atas</p>
+                <br>
+                <p>&blacktriangleright; Opsi ke-2 supaya penulisannya lebih Estetik :</p>
+                <pre>
+                    const score = 80;
+                    const grade = score < 60 ? 'F' 
+                        : score < 70 ? 'D' 
+                        : score < 80 ? 'C' 
+                        : score < 90 ? 'B' : 'A';
+
+                    <mark>console.log(grade);</mark>            <mark>Terminal result : B</mark>
+                </pre>
+            </fieldset>
+        </fieldset>
+    </fieldset>
+</body>
+</html>
